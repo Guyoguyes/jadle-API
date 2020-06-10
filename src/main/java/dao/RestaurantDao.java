@@ -11,4 +11,12 @@ public interface RestaurantDao {
 
     //Get all
     List<Restaurant> getAll();
+
+    //update
+    void update(int id, String name, String address, String zipcode, String phone, String website, String email);
+
+    //delete
+    void deleteById(int id);
+    void clearAll();
+
 }

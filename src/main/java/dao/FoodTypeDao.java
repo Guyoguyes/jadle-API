@@ -11,4 +11,12 @@ public interface FoodTypeDao {
 
     //get all
     List<FoodType> getAll();
+
+    //update
+    void update(int id, String name);
+
+    //delete
+    void deleteById(int id);
+    void clearAll();
+
 }

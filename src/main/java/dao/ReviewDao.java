@@ -11,4 +11,11 @@ public interface ReviewDao {
 
     //get All
     List<Review> getAll();
+
+    //getallReviewsByRestaurant
+    List<Review> getAllReviewByRestaurant(int restaurantId);
+
+    //delete
+    void deleteById(int id);
+    void clearAll();
 }
