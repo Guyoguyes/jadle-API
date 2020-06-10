@@ -17,4 +17,12 @@ public class Restaurant {
         this.website = website;
         this.email = email;
     }
+
+    public Restaurant(String name, String address, String zipcode, String phone, String email){
+        this.name = name;
+        this.address = address;
+        this.zipcode = zipcode;
+        this.phone = phone;
+        this.email = email;
+    }
 }
