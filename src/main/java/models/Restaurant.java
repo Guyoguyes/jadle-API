@@ -9,12 +9,13 @@ public class Restaurant {
     private String email;
     private int id;
 
-    public Restaurant(String name, String address, String zipcode, String phone, String email){
+    public Restaurant(String name, String address, String zipcode, String phone){
         this.name = name;
         this.address = address;
         this.zipcode = zipcode;
         this.phone = phone;
-        this.email = email;
+        this.website = "no website available";
+        this.email = "no email available";
     }
 
     public Restaurant(String name, String address, String zipcode, String phone, String website, String email){
