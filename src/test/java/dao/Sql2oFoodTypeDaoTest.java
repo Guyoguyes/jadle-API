@@ -1,5 +1,6 @@
 package dao;
 
+import models.FoodType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,4 +36,7 @@ public class Sql2oFoodTypeDaoTest {
     @Test
     public void clearAll() {
     }
+
+    //helper method
+
 }
