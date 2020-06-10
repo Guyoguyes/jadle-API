@@ -12,6 +12,9 @@ public interface RestaurantDao {
     //Get all
     List<Restaurant> getAll();
 
+    // find by id
+    Restaurant findById(int id);
+
     //update
     void update(int id, String name, String address, String zipcode, String phone, String website, String email);
 

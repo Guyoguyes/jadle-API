@@ -12,6 +12,9 @@ public interface FoodTypeDao {
     //get all
     List<FoodType> getAll();
 
+    // find by id
+    FoodType findById(int id);
+
     //update
     void update(int id, String name);
 

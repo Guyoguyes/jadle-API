@@ -55,6 +55,15 @@ public class Sql2oRestaurantDao implements RestaurantDao{
     }
 
     @Override
+    public Restaurant findById(int id) {
+        try(Connection connection = sql2o.open()){
+            return connection.createQuery("SELECT  * FROM  restaurants WHERE id=:id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Restaurant.class);
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         String sql = "DELETE FROM restaurants WHERE id=:id";
         try(Connection connection = sql2o.open()) {
