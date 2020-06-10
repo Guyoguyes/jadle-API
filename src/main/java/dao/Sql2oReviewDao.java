@@ -16,7 +16,7 @@ public class Sql2oReviewDao implements ReviewDao{
 
     @Override
     public void add(Review review) {
-        String sql = "INSERT INTO reviews (writtenby, content, rating, restaurantId) VALUES (:writtenby, :content, :rating, :restaurantId)";
+        String sql = "INSERT INTO reviews (writtenby, content, rating, restaurantId) VALUES (:writtenBy, :content, :rating, :restaurantId)";
         try(Connection connection = sql2o.open()) {
             int id = (int) connection.createQuery(sql, true)
                     .bind(review)
@@ -47,7 +47,7 @@ public class Sql2oReviewDao implements ReviewDao{
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE * FROM reviews WHERE id=:id";
+        String sql = "DELETE FROM reviews WHERE id=:id";
         try(Connection connection = sql2o.open()){
             connection.createQuery(sql)
                     .addParameter("id", id)
@@ -59,7 +59,7 @@ public class Sql2oReviewDao implements ReviewDao{
 
     @Override
     public void clearAll() {
-        String sql = "DELETE * FROM reviews";
+        String sql = "DELETE FROM reviews";
         try(Connection connection = sql2o.open()) {
             connection.createQuery(sql)
                     .executeUpdate();
