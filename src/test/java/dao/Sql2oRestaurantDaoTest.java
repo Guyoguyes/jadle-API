@@ -1,5 +1,6 @@
 package dao;
 
+import models.FoodType;
 import models.Restaurant;
 import org.junit.After;
 import org.junit.Before;
@@ -58,6 +59,8 @@ public class Sql2oRestaurantDaoTest {
         restaurantDao.clearAll();
         assertEquals(0, restaurantDao.getAll().size());
     }
+
+
 
     //helper method
     public Restaurant setUpAssistant(){
