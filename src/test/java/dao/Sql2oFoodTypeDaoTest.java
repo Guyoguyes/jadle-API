@@ -1,6 +1,8 @@
 package dao;
 
 import models.FoodType;
+import models.Restaurant;
+import models.Review;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,12 +14,15 @@ import static org.junit.Assert.*;
 public class Sql2oFoodTypeDaoTest {
     private Connection con;
     private Sql2oFoodTypeDao foodTypeDao;
+    private Sql2oRestaurantDao restaurantDao;
+
 
     @Before
     public void setUp() throws Exception {
         String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         foodTypeDao = new Sql2oFoodTypeDao(sql2o);
+        restaurantDao = new Sql2oRestaurantDao(sql2o);
         con = sql2o.open();
     }
 
@@ -63,10 +68,39 @@ public class Sql2oFoodTypeDaoTest {
         assertEquals(0, foodTypeDao.getAll().size());
     }
 
+    @Test
+    public void addFoodTypeToRestaurantAddsTypeCorrectly() throws Exception {
+
+        Restaurant testRestaurant = setupRestaurant();
+        Restaurant altRestaurant = setupAltRestaurant();
+
+        restaurantDao.add(testRestaurant);
+        restaurantDao.add(altRestaurant);
+
+        FoodType testFoodtype = setUpAssistant();
+
+        foodTypeDao.add(testFoodtype);
+
+        foodTypeDao.addFoodtypeToRestaurant(testFoodtype, testRestaurant);
+        foodTypeDao.addFoodtypeToRestaurant(testFoodtype, altRestaurant);
+
+        assertEquals(2, foodTypeDao.getAllRestaurantsForAFoodtype(testFoodtype.getId()).size());
+    }
+
     //helper method
     public FoodType setUpAssistant(){
-        FoodType foodType = new FoodType("Biriani");
-        foodTypeDao.add(foodType);
-        return foodType;
+        return new FoodType("Biriani");
+    }
+
+    public Restaurant setupRestaurant (){
+        Restaurant restaurant = new Restaurant("Fish Omena", "214 NE Safaricom", "97232", "254-402-9874", "http://fishwitch.com", "hellofishy@fishwitch.com");
+        restaurantDao.add(restaurant);
+        return restaurant;
+    }
+
+    public Restaurant setupAltRestaurant (){
+        Restaurant restaurant = new Restaurant("Fish Omena", "214 NE Safaricom", "97232", "254-402-9874");
+        restaurantDao.add(restaurant);
+        return restaurant;
     }
 }

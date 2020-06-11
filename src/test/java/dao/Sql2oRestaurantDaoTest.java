@@ -8,17 +8,22 @@ import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class Sql2oRestaurantDaoTest {
     private Connection con;
-    private RestaurantDao restaurantDao;
+    private Sql2oRestaurantDao restaurantDao;
+    private Sql2oFoodTypeDao foodTypeDao;
+
 
     @Before
     public void setUp() throws Exception {
         String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         restaurantDao = new Sql2oRestaurantDao(sql2o);
+        foodTypeDao = new Sql2oFoodTypeDao(sql2o);
         con = sql2o.open();
     }
 
@@ -60,6 +65,23 @@ public class Sql2oRestaurantDaoTest {
         assertEquals(0, restaurantDao.getAll().size());
     }
 
+    @Test
+    public void RestaurantReturnsFoodTypesCorrectly() throws Exception{
+        FoodType foodType = new FoodType("Seafood");
+        foodTypeDao.add(foodType);
+
+        FoodType otherFoodType = new FoodType("Bar Food");
+        foodTypeDao.add(otherFoodType);
+
+        Restaurant restaurant = setUpAssistant();
+        restaurantDao.add(restaurant);
+
+        restaurantDao.addRestaurantToFoodType(restaurant, foodType);
+        restaurantDao.addRestaurantToFoodType(restaurant, otherFoodType);
+
+        FoodType[] foodTypes = {foodType, otherFoodType};
+        assertEquals(Arrays.asList(foodTypes), restaurantDao.getAllFoodtypesByRestaurant(restaurant.getId()));
+    }
 
 
     //helper method
