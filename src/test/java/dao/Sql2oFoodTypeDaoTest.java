@@ -34,6 +34,7 @@ public class Sql2oFoodTypeDaoTest {
     @Test
     public void add() {
         FoodType foodType = setUpAssistant();
+        foodTypeDao.add(foodType);
         assertEquals(1, foodTypeDao.getAll().size());
     }
 
@@ -41,6 +42,8 @@ public class Sql2oFoodTypeDaoTest {
     public void getAll() {
         FoodType foodType = setUpAssistant();
         FoodType foodType1 = setUpAssistant();
+        foodTypeDao.add(foodType);
+        foodTypeDao.add(foodType1);
         assertEquals(2, foodTypeDao.getAll().size());
     }
 
@@ -56,6 +59,8 @@ public class Sql2oFoodTypeDaoTest {
     public void deleteById() {
         FoodType foodType = setUpAssistant();
         FoodType foodType1 = setUpAssistant();
+        foodTypeDao.add(foodType);
+        foodTypeDao.add(foodType1);
         foodTypeDao.deleteById(foodType.getId());
         assertEquals(1, foodTypeDao.getAll().size());
     }

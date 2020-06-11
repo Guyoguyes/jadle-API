@@ -86,9 +86,9 @@ public class Sql2oFoodTypeDao implements FoodTypeDao {
     public void addFoodtypeToRestaurant(FoodType foodType, Restaurant restaurant) {
         String sql = "INSERT INTO restaurants_foodtypes (restaurantid, foodtypeid) VALUES (:restaurantId, :foodtypeId)";
         try(Connection connection = sql2o.open()) {
-            connection.createQuery(sql, true)
+            connection.createQuery(sql)
                     .addParameter("restaurantid", restaurant.getId())
-                    .addParameter("foodtypeId", foodType.getId())
+                    .addParameter("foodtypeid", foodType.getId())
                     .executeUpdate();
         }catch (Sql2oException e){
             System.out.println(e);
